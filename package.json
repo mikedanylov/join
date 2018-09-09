@@ -1,0 +1,15 @@
+{
+  "name": "join-arrays",
+  "version": "1.0.0",
+  "description": "",
+  "main": "join.js",
+  "scripts": {
+    "test": "mocha join.spec.js"
+  },
+  "author": "mike.danylov@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
