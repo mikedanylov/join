@@ -1,51 +1,36 @@
-module.exports = function(arr1 /*, arrn */) {
-  var argsArray = [].slice.call(arguments);
-
-  if (!argsArray || !Array.isArray(argsArray)) {
-    return [];
-  }
-
-  var flatArray = flatten(argsArray);
-  var uniqueArray = removeDuplicates(flatArray);
-  var sortedArray = uniqueArray.slice(0).sort(sortByLastModifiedAsc);
-
-  return sortedArray;
-};
-
 /**
  * Shallow flattening of array of arrays
  * @param {Array} arrays
  * @returns {Array}
  */
-function flatten(arrays) {
+const flatten = (arrays) => {
   if (!arrays || !Array.isArray(arrays)) {
     return [];
   }
 
-  var flatArray = arrays.reduce(function(acc, curr) {
+  return arrays.reduce((acc, curr) => {
     return acc.concat(curr);
   }, []);
-
-  return flatArray;
-}
+};
 
 /**
  * Remove duplicates from an array
  * @param {Array} array
  * @returns {Array}
  */
-function removeDuplicates(array) {
+const removeDuplicates = (array) => {
   if (!array || !Array.isArray(array)) {
     return [];
   }
 
-  var uniqueArray = [];
-  var resultMap = {};
+  let uniqueArray = [];
+  let resultMap = {};
 
-  array.forEach(function(element) {
-    var existingValue = resultMap[JSON.stringify(element)];
+  array.forEach((element) => {
+    const existingValue = resultMap[JSON.stringify(element)];
+
     if (existingValue) {
-      resultMap[JSON.stringify(element)] = existingValue++;
+      resultMap[JSON.stringify(element)] = existingValue + 1;
     } else {
       resultMap[JSON.stringify(element)] = 1;
       uniqueArray.push(element);
@@ -53,7 +38,7 @@ function removeDuplicates(array) {
   });
 
   return uniqueArray;
-}
+};
 
 /**
  * Compare elements by lastModified property
@@ -61,7 +46,7 @@ function removeDuplicates(array) {
  * @param {Object} element2
  * @returns {number}
  */
-function sortByLastModifiedAsc(element1, element2) {
+const sortByLastModifiedAsc = (element1, element2) => {
   if (!element1.lastModified || !element2.lastModified) {
     return 0;
   }
@@ -75,4 +60,18 @@ function sortByLastModifiedAsc(element1, element2) {
   }
 
   return element1.lastModified.getTime() - element2.lastModified.getTime();
-}
+};
+
+module.exports = function(arr1 /*, arrn */) {
+  const argsArray = [].slice.call(arguments);
+
+  if (!argsArray || !Array.isArray(argsArray)) {
+    return [];
+  }
+
+  const flatArray = flatten(argsArray);
+  const uniqueArray = removeDuplicates(flatArray);
+  const sortedArray = [...uniqueArray].sort(sortByLastModifiedAsc);
+
+  return sortedArray;
+};
