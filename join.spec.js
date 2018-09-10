@@ -61,9 +61,7 @@ describe('join', () => {
     };
 
     const result = join(
-      [
-        Object.assign({}, duplicate)
-      ],
+      [Object.assign({}, duplicate)],
       [
         {
           lastModified: new Date('2018-08-09T07:00:00.000Z')
@@ -111,20 +109,23 @@ describe('join', () => {
         Object.assign({}, fourth),
         Object.assign({}, first)
       ],
-      [
-        Object.assign({}, first)
-      ],
-      [
-        Object.assign({}, second),
-        Object.assign({}, first)
-      ]
+      [Object.assign({}, first)],
+      [Object.assign({}, second), Object.assign({}, first)]
     );
 
     expect(result).to.be.instanceof(Array);
     expect(result.length).to.be.equal(4);
-    expect(result[0].lastModified.toISOString()).to.be.equal(first.lastModified.toISOString());
-    expect(result[1].lastModified.toISOString()).to.be.equal(second.lastModified.toISOString());
-    expect(result[2].lastModified.toISOString()).to.be.equal(third.lastModified.toISOString());
-    expect(result[3].lastModified.toISOString()).to.be.equal(fourth.lastModified.toISOString());
+    expect(result[0].lastModified.toISOString()).to.be.equal(
+      first.lastModified.toISOString()
+    );
+    expect(result[1].lastModified.toISOString()).to.be.equal(
+      second.lastModified.toISOString()
+    );
+    expect(result[2].lastModified.toISOString()).to.be.equal(
+      third.lastModified.toISOString()
+    );
+    expect(result[3].lastModified.toISOString()).to.be.equal(
+      fourth.lastModified.toISOString()
+    );
   });
 });

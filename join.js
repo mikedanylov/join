@@ -3,14 +3,14 @@
  * @param {Array} arrays
  * @returns {Array}
  */
-const flatten = (arrays) => {
+const flatten = arrays => {
   if (!arrays || !Array.isArray(arrays)) {
     return [];
   }
 
-  return arrays.reduce((acc, curr) => {
-    return acc.concat(curr);
-  }, []);
+  const reducer = (acc, curr) => [...acc, ...curr];
+  
+  return arrays.reduce(reducer, []);
 };
 
 /**
@@ -18,7 +18,7 @@ const flatten = (arrays) => {
  * @param {Array} array
  * @returns {Array}
  */
-const removeDuplicates = (array) => {
+const removeDuplicates = array => {
   if (!array || !Array.isArray(array)) {
     return [];
   }
@@ -26,7 +26,7 @@ const removeDuplicates = (array) => {
   let uniqueArray = [];
   let resultMap = {};
 
-  array.forEach((element) => {
+  array.forEach(element => {
     const existingValue = resultMap[JSON.stringify(element)];
 
     if (existingValue) {
@@ -71,7 +71,7 @@ module.exports = function(arr1 /*, arrn */) {
 
   const flatArray = flatten(argsArray);
   const uniqueArray = removeDuplicates(flatArray);
-  const sortedArray = [...uniqueArray].sort(sortByLastModifiedAsc);
+  const sortedArray = uniqueArray.sort(sortByLastModifiedAsc);
 
   return sortedArray;
 };
